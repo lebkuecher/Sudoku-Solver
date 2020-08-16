@@ -43,21 +43,30 @@ def solve():
         sudoku()
 
 def enter_values():
+    global grid
     for row_value in range(9):
         row = list(map(int, input(f"Enter values for row {row_value + 1}: ")))
-        grid.append(row)
+        if len(row) != 9:
+            print('You did not enter enough digits.  Please start over.')
+            grid=[]
+            return
         if row_value == 8:
+            grid.append(row)
             solve()
         else:
+            grid.append(row)
+            print(np.matrix(grid))
             continue
 
 def sudoku():
+    global grid
     while True:
         try:
             enter_values()
 
         except ValueError:
-            print('Please enter only numbers.')
+            print('Please enter only numbers. You will need to start over')
+            grid = []
             continue
 
 sudoku()
